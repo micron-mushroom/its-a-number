@@ -1,0 +1,17 @@
+# Build 
+its-a-number-test
+*.a
+*.dll
+*.so
+*.dylib
+*.lib
+
+# CMake ignore
+Makefile
+cmake_install.cmake
+CMakeCache.txt
+build/
+CMakeFiles/
+
+# System
+.DS_Store
