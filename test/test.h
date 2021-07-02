@@ -8,18 +8,25 @@
 #include <stdlib.h>
 #include <its_a_number.h>
 
-#define ASSERT_EQ(A, B, TEST_NAME, LOG_EXPR) \
-    if (A != B) \
+#define ASSERT_EQ(CONST, RESULT, TEST_NAME, FMT_STR, ...) \
+    if (CONST != RESULT) \
     { \
-        fprintf(stderr, "Failed test " TEST_NAME ":\n\t" #A " != " #B "\n"); \
-        LOG_EXPR; \
+        fprintf(stderr, "Failed test " TEST_NAME ":\n"); \
+        fprintf(stderr, "\t" #RESULT " = " FMT_STR, ##__VA_ARGS__); \
         exit(1); \
     } \
-    else printf("Passed test" TEST_NAME "\n");
+    else printf("Passed test " TEST_NAME "\n");
+
+/**
+ * Helpful functions
+ */
+char* str_from_64bits(unsigned long long *val);
 
 /**
  * Different tests tht can be run.
  */
 void bin_test();
+void hex_test();
+void oct_test();
 
 #endif

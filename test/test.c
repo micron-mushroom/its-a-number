@@ -9,7 +9,12 @@ int main(int argc, char *argv[])
 #endif
 
     // Run the test
+    printf("-----Testing binary-----\n");
     bin_test();
+    printf("-----Testing hex-----\n");
+    hex_test();
+    printf("-----Testing oct-----\n");
+    oct_test();
 
     // Exit
     printf("Finished testing...time to exit.\n");
