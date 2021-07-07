@@ -7,5 +7,5 @@ void oct_test()
 
     char *result_str = str_from_64bits(&result);
     ASSERT_EQ(val, result, "oct_test->parse_int", "%llu(%s)", result, result_str);
-    free(result_str);
+    free(result_str);//
 }

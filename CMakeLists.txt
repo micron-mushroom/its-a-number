@@ -44,6 +44,7 @@ if(BUILD_UNIT_TESTS)
         ${TESTS_DIR}/test.c
         ${TESTS_DIR}/bin_test.c
         ${TESTS_DIR}/hex_test.c
+        ${TESTS_DIR}/kaktovik_test.c
         ${TESTS_DIR}/oct_test.c
     )
 
