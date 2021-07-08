@@ -6,23 +6,29 @@
  * Kaktovik Inupiaq numerals.
  */
 
+#ifndef __ITS_A_NUMBER
+#define __ITS_A_NUMBER
+
+#include <stdint.h>
+
 // Binary
-float parse_bin_float(char *str);
-double parse_bin_double(const char *str, unsigned begin, unsigned end);
-unsigned long long parse_bin_int(const char *str);
+// float parse_bin_float(const char *str);
+// double parse_bin_double(const char *str);
+uint64_t parse_bin_int(const char *str);
 
 // Hex
-float parse_hex_float(char *str);
-double parse_hex_double(char *str);
-unsigned long long parse_hex_int(char *str);
+// float parse_hex_float(const char *str);
+// double parse_hex_double(const char *str);
+uint64_t parse_hex_int(const char *str);
 
 // Kaktovik Inupiaq
-float parse_kaktovik_float(char *str);
-double parse_kaktovik_double(char *str);
-unsigned long long parse_kaktovik_int(const char *str);
+// float parse_kaktovik_float(const char *str);
+// double parse_kaktovik_double(const char *str);
+uint64_t parse_kaktovik_int(const char *str);
 
 // Octal
-float parse_oct_float(char *str);
-double parse_oct_double(char *str);
-unsigned long long parse_oct_int(char *str);
+// float parse_oct_float(const char *str);
+// double parse_oct_double(const char *str);
+uint64_t parse_oct_int(const char *str);
 
+#endif

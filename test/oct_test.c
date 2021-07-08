@@ -2,10 +2,7 @@
 
 void oct_test()
 {
-    unsigned long long val = 07423;
-    unsigned long long result = parse_oct_int("7423");
+    parse_test64("oct_int", parse_oct_int, "7423", 07423);
 
-    char *result_str = str_from_64bits(&result);
-    ASSERT_EQ(val, result, "oct_test->parse_int", "%llu(%s)", result, result_str);
-    free(result_str);//
+    parse_test64("oct_int(2)", parse_oct_int, "325347", 0325347);
 }

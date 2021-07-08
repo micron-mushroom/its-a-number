@@ -19,14 +19,14 @@ int oct_value(char c)
     }
 }
 
-unsigned long long parse_oct_int(char *str)
+uint64_t parse_oct_int(const char *str)
 {
-    unsigned long long buffer = 0; 
+    uint64_t buffer = 0; 
     unsigned len = strlen(str);
 
     for(unsigned i = 0; i < len; i++)
     {
-        buffer |= (unsigned long long)oct_value(str[len-i-1]) << (3 * i);
+        buffer |= (uint64_t)oct_value(str[len-i-1]) << (3 * i);
     }
 
     return buffer;

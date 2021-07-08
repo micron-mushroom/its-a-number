@@ -2,54 +2,10 @@
 #include <string.h>
 
 /**
- * Helper function to format a 32 bit type as a str
+ * Parsing for floating point numbers (TODO)
  */
-char* str_from_32bits(unsigned long *val)
-{
-    // Allocate cstring with 32 characters for bits and an extra for the null terminator
-    char *str = (char *)calloc(33, sizeof(char));
-    memset(str, '\0', 33);
-
-    // Read the bits into the string
-    for(int i = 0; i < 32; i++)
-    {
-        char *index = str + (i*sizeof(char));
-
-        if(*val >> (31 - i) & 1) *index = '1';
-        else *index = '0';
-    }
-
-    // Return
-    return str;
-}
-
-/**
- * Helper function to format a 64 bit type as a str
- */
-char* str_from_64bits(unsigned long long *val)
-{
-    // Allocate cstring with 64 character for bits and an extra for the null terminator
-    char *str = (char*)calloc(65, sizeof(char));
-    memset(str, '\0', 65);
-
-    // Read the bits into the string
-    for(int i = 0; i < 64; i++)
-    {
-        char *index = str + (i*sizeof(char));
-
-        if(*val >> (63 - i) & 1) *index = '1';
-        else *index = '0';
-    }
-
-    // Return
-    return str;
-}
-
-/**
- * Parsing for floating point numbers
- */
-void pi_test()
-{
+// void pi_test()
+// {
     // 32 bit IEEE
     // {
     //     const float pi = 3.14;
@@ -77,22 +33,13 @@ void pi_test()
     //     free(pi_str);
     //     free(result_str);
     // }
-}
-
-void plain_test()
-{
-    const unsigned long long val = 0b01100101;
-    unsigned long long result = parse_bin_int("01100101");
-
-    char *result_str = str_from_64bits(&result);
-    ASSERT_EQ(val, result, "bin_test->parse_int", "%s", result_str);
-    free(result_str);
-}
+// }
 
 /**
  * Test function
  */
 void bin_test() {
-    pi_test();
-    plain_test();
+    parse_test64("bin_int", parse_bin_int, "01100101", 0b01100101);
+
+    parse_test64("bin_int(2)", parse_bin_int, "101111011011010101000101", 0b101111011011010101000101);
 }

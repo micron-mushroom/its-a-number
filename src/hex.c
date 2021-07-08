@@ -56,15 +56,15 @@ int hex_value(char c)
 }
 
 
-unsigned long long parse_hex_int(char *str)
+uint64_t parse_hex_int(const char *str)
 {
-    unsigned long long buffer = 0;
+    uint64_t buffer = 0;
     const unsigned len = strlen(str);
 
     // Copy bits into buffer
     for(unsigned i = 0; i < len; i++)
     {
-        buffer |= (unsigned long long)hex_value(str[len-i-1]) << (4 * i);
+        buffer |= (uint64_t)hex_value(str[len-i-1]) << (4 * i);
     }
 
     return buffer;
