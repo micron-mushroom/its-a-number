@@ -24,6 +24,24 @@ char *str_from_bits(const uint64_t *val)
     return str;
 }
 
+char *str_from_bits32(const uint32_t *val)
+{
+    char *str = (char*)calloc(33, sizeof(char));
+    memset(str, '\0', 33);
+
+    for (uint32_t i = 0; i < 32; i++)
+    {
+        char *index = str + (i * sizeof(char));
+
+        if (*val >> (31 - i) & 1)
+            *index = '1';
+        else
+            *index = '0';
+    }
+
+    return str;
+}
+
 /**
  * Used for testing the int parsing functions.
  */
@@ -36,7 +54,31 @@ int parse_test64(const char *name, u_int64_t (*parse_fn)(const char *), const ch
     if (val != result)
     {
         printf("Failed test %s:\n", name);
-        printf("\t result = %llu(%s)\n", result, result_str);
+        printf("\t%llu != %llu\n", val, result);
+        printf("\tresult = %llu(%s)\n", result, result_str);
+        return -1;
+    }
+    else
+        printf("Passed test %s\n", name);
+
+    free(result_str);
+    return 0;
+}
+
+/**
+ * Used for testing the float parsing functions
+ */
+int parse_testf(const char *name, float (*parse_fn)(const char *), const char *str, const float val)
+{
+    float result = parse_fn(str);
+    char *result_str = str_from_bits32((uint32_t *)&result);
+
+    // Test time
+    if (val != result)
+    {
+        printf("Failed test %s:\n", name);
+        printf("\t%f != %f\n", val, result);
+        printf("\tresult = %f(%s)\n", result, result_str);
         return -1;
     }
     else

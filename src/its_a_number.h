@@ -12,7 +12,7 @@
 #include <stdint.h>
 
 // Binary
-// float parse_bin_float(const char *str);
+float parse_bin_float(const char *str);
 // double parse_bin_double(const char *str);
 uint64_t parse_bin_int(const char *str);
 

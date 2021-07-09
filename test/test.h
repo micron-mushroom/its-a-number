@@ -10,6 +10,7 @@
 #include <its_a_number.h>
 
 int parse_test64(const char *name, u_int64_t (*parse_fn)(const char *), const char *str, const uint64_t val);
+int parse_testf(const char *name, float (*parse_fn)(const char *), const char *str, const float val);
 
 /**
  * Helpful functions
