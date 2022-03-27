@@ -1,4 +1,7 @@
-#include "test.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <its_a_number.h>
 
 /**
  * Helper function to format a 64 bit type as a str
@@ -88,37 +91,33 @@ int parse_testf(const char *name, float (*parse_fn)(const char *), const char *s
     return 0;
 }
 
-#define HEADER_WIDTH 80
-#define HEADER_PADDR '-'
+void bin_test() {
+    // Int tests
+    parse_test64("bin_int", parse_bin_int, "01100101", 0b01100101);
+    parse_test64("bin_int(2)", parse_bin_int, "101111011011010101000101", 0b101111011011010101000101);
 
-/**
- * Prettier test header printing. 
- */
-void print_header(const char *str)
-{
-    // Where should we start printing the header string?
-    unsigned len = strlen(str);
-    unsigned pos = (HEADER_WIDTH >> 1) - (len >> 1) - 1;
-
-    // Print the header
-    for (unsigned i = 0; i < HEADER_WIDTH; i++)
-    {        
-        // We aren't within the bounds of the string, print the padder
-        if (i < pos || i > pos + len)
-            putchar(HEADER_PADDR);
-        // We are within the bounds of the string, print the relevant chr
-        else
-            putchar(*(str + (i - pos)));
-    }
-
-    putchar('\n');
-    fflush(stdout);
+    // Float tests
+    parse_testf("bin_float", parse_bin_float, "101.01", 5.25f);
 }
 
-// Macros make things clean
-#define RUN_TESTS(MOD_NAME, EXPR) \
-    print_header(MOD_NAME); \
-    EXPR;
+void hex_test()
+{
+    parse_test64("hex_int", parse_hex_int, "FF", 0xFF);
+    parse_test64("hex_int(2)", parse_hex_int, "FFA365", 0xFFA365);
+}
+
+void kaktovik_test()
+{
+    parse_test64("kaktovik_int", &parse_kaktovik_int, "\\`%", 20);
+    parse_test64("kaktovik_int(2)", &parse_kaktovik_int, "/\\`^\\/\\/", 134);
+    parse_test64("kaktovik_int(3)", &parse_kaktovik_int, "\\/`^/\\/\\/`^/\\`^/\\/`/\\`^/\\/", 9574937);
+}
+
+void oct_test()
+{
+    parse_test64("oct_int", parse_oct_int, "7423", 07423);
+    parse_test64("oct_int(2)", parse_oct_int, "325347", 0325347);
+}
 
 int main(int argc, char *argv[])
 {
@@ -128,13 +127,19 @@ int main(int argc, char *argv[])
     printf("Running tests\n");
 #endif
 
-    // Run the test
-    RUN_TESTS(" BINARY ", bin_test());
-    RUN_TESTS(" HEX ", hex_test());
-    RUN_TESTS(" KAKTOVIK ", kaktovik_test());
-    RUN_TESTS(" OCTAL ", oct_test());
+    printf("----- Binary -----\n");
+    bin_test();
 
-    // Exit
+    printf("----- Hex -----\n");
+    hex_test();
+
+    printf("----- Kaktovik numerals -----\n");
+    kaktovik_test();
+
+    printf("----- Octal -----\n");
+    oct_test();
+
     printf("Finished testing... time to exit.\n");
     return 0;
 }
+

@@ -10,7 +10,6 @@ option(DYNAMIC_LIB "Should the lib be dynamically linked" OFF)
 
 # Project dirs
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-set(TESTS_DIR ${CMAKE_SOURCE_DIR}/test)
 
 # Deal with the Catalina implicit declaration bug
 if(APPLE)
@@ -41,11 +40,6 @@ if(BUILD_UNIT_TESTS)
     message(STATUS "Building with tests")
 
     set(TESTS
-        ${TESTS_DIR}/test.c
-        ${TESTS_DIR}/bin_test.c
-        ${TESTS_DIR}/hex_test.c
-        ${TESTS_DIR}/kaktovik_test.c
-        ${TESTS_DIR}/oct_test.c
     )
 
     # Include for the tests
@@ -53,7 +47,7 @@ if(BUILD_UNIT_TESTS)
 
     set(TEST_NAME "${PROJECT_NAME}-test")
 
-    add_executable(${TEST_NAME} ${TESTS})
+    add_executable(${TEST_NAME} ${CMAKE_SOURCE_DIR}/test.c)
 
     # Add lib as a dependency
     add_dependencies(${TEST_NAME} ${PROJECT_NAME})
@@ -63,9 +57,10 @@ if(BUILD_UNIT_TESTS)
 
     # Link
     find_library(PROJECT_LIB NAMES ${PROJECT_NAME}
-                PATHS   ${CMAKE_SOURCE_DIR}
-                        ${CMAKE_SOURCE_DIR}/build
-    )
+                 PATHS ${CMAKE_SOURCE_DIR}
+                       ${CMAKE_SOURCE_DIR}/build)
+
+    message(STATUS "Will link ${PROJECT_LIB}")
 
     target_link_libraries(${TEST_NAME} ${PROJECT_LIB})
 endif(BUILD_UNIT_TESTS)
